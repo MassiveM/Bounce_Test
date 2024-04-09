@@ -1,0 +1,479 @@
+{
+	"name": "GeneralSheet",
+	"events": [
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Buttons",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-created",
+							"objectClass": "FButton",
+							"sid": 185834303293821
+						}
+					],
+					"actions": [
+						{
+							"id": "set-instvar-value",
+							"objectClass": "FButton",
+							"sid": 726412939970492,
+							"parameters": {
+								"instance-variable": "FirstWidth",
+								"value": "FButton.Width"
+							}
+						},
+						{
+							"id": "set-instvar-value",
+							"objectClass": "FButton",
+							"sid": 138448327127125,
+							"parameters": {
+								"instance-variable": "FirstHieght",
+								"value": "FButton.Height"
+							}
+						}
+					],
+					"sid": 197185447137818
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-nth-touch-start",
+							"objectClass": "Touch",
+							"sid": 524959232344500,
+							"parameters": {
+								"touch-number": "0"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 651829016115131,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "is-touching-object",
+									"objectClass": "Touch",
+									"sid": 532212381260901,
+									"parameters": {
+										"object": "FButton"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-size",
+									"objectClass": "FButton",
+									"sid": 881531987732668,
+									"parameters": {
+										"width": "Self.Width * .9",
+										"height": "Self.Height* .9"
+									}
+								}
+							],
+							"sid": 755277748362627
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-nth-touch-end",
+							"objectClass": "Touch",
+							"sid": 679278844455138,
+							"parameters": {
+								"touch-number": "0"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 492513390160251,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "is-touching-object",
+									"objectClass": "Touch",
+									"sid": 925842630987385,
+									"parameters": {
+										"object": "FButton"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-size",
+									"objectClass": "FButton",
+									"sid": 207777331363034,
+									"parameters": {
+										"width": "Self.FirstWidth",
+										"height": "Self.FirstHieght"
+									}
+								}
+							],
+							"sid": 281694225781191
+						}
+					]
+				}
+			],
+			"sid": 251179415135704
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Music & SFX",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 383061134315216,
+							"parameters": {
+								"variable": "Music_Disabled",
+								"comparison": 0,
+								"value": "0"
+							}
+						},
+						{
+							"id": "is-tag-playing",
+							"objectClass": "Audio",
+							"sid": 213417265070820,
+							"parameters": {
+								"tag": "\"game_music\""
+							},
+							"isInverted": true
+						}
+					],
+					"actions": [
+						{
+							"id": "play",
+							"objectClass": "Audio",
+							"sid": 640668843023121,
+							"parameters": {
+								"audio-file": "game_music",
+								"loop": "looping",
+								"volume": "0",
+								"stereo-pan": "0",
+								"tag-optional": "\"game_music\""
+							}
+						}
+					],
+					"sid": 854119574953194
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 780002851956291
+						},
+						{
+							"id": "compare-eventvar",
+							"objectClass": "System",
+							"sid": 982047284674926,
+							"parameters": {
+								"variable": "Music_Disabled",
+								"comparison": 0,
+								"value": "1"
+							}
+						},
+						{
+							"id": "is-tag-playing",
+							"objectClass": "Audio",
+							"sid": 456086695440037,
+							"parameters": {
+								"tag": "\"game_music\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "stop",
+							"objectClass": "Audio",
+							"sid": 437559307298396,
+							"parameters": {
+								"tag": "\"game_music\""
+							}
+						}
+					],
+					"sid": 571046144715824
+				},
+				{
+					"functionName": "PlaySFX",
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionCopyPicked": false,
+					"functionIsAsync": false,
+					"functionParameters": [
+						{
+							"name": "SFX_Name",
+							"type": "string",
+							"initialValue": "",
+							"comment": "",
+							"sid": 726713641388233
+						}
+					],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 727249034914998,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 588070762689244,
+									"parameters": {
+										"variable": "SFX_Name",
+										"comparison": 0,
+										"value": "\"BallCollision\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "play",
+									"objectClass": "Audio",
+									"sid": 520410064806619,
+									"parameters": {
+										"audio-file": "wall_collision",
+										"loop": "not-looping",
+										"volume": "0",
+										"stereo-pan": "0",
+										"tag-optional": "\"\""
+									}
+								}
+							],
+							"sid": 682325824571269
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 724520084587971
+								},
+								{
+									"id": "compare-eventvar",
+									"objectClass": "System",
+									"sid": 465764001904588,
+									"parameters": {
+										"variable": "SFX_Name",
+										"comparison": 0,
+										"value": "\"BallExplosion\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "play",
+									"objectClass": "Audio",
+									"sid": 368778153774892,
+									"parameters": {
+										"audio-file": "ball_explosion",
+										"loop": "not-looping",
+										"volume": "0",
+										"stereo-pan": "0",
+										"tag-optional": "\"ball_explosion\""
+									}
+								}
+							],
+							"sid": 336061461569929
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [],
+							"sid": 998906155718419
+						}
+					]
+				}
+			],
+			"sid": 172323182624206
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "LocalStorage ",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-start-of-layout",
+							"objectClass": "System",
+							"sid": 113383568120617
+						}
+					],
+					"actions": [
+						{
+							"id": "check-item-exists",
+							"objectClass": "LocalStorage",
+							"sid": 208487277446436,
+							"parameters": {
+								"key": "\"MUSIC\""
+							}
+						}
+					],
+					"sid": 787898765580653
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-item-exists",
+							"objectClass": "LocalStorage",
+							"sid": 707373081168045,
+							"parameters": {
+								"key": "\"MUSIC\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "get-item",
+							"objectClass": "LocalStorage",
+							"sid": 775236034562818,
+							"parameters": {
+								"key": "\"MUSIC\""
+							}
+						}
+					],
+					"sid": 266933972871520
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-item-get",
+							"objectClass": "LocalStorage",
+							"sid": 833311990315137,
+							"parameters": {
+								"key": "\"MUSIC\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 512314837287610,
+							"parameters": {
+								"variable": "Music_Disabled",
+								"value": "LocalStorage.ItemValue"
+							}
+						},
+						{
+							"id": "set-animation-frame",
+							"objectClass": "BtnMusic",
+							"sid": 687384415768327,
+							"parameters": {
+								"frame-number": "Music_Disabled"
+							}
+						}
+					],
+					"sid": 402186296779288
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-start-of-layout",
+							"objectClass": "System",
+							"sid": 503232542392374
+						}
+					],
+					"actions": [
+						{
+							"id": "check-item-exists",
+							"objectClass": "LocalStorage",
+							"sid": 861621146110491,
+							"parameters": {
+								"key": "\"SFX\""
+							}
+						}
+					],
+					"sid": 273970296946889
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-item-exists",
+							"objectClass": "LocalStorage",
+							"sid": 586487232131016,
+							"parameters": {
+								"key": "\"SFX\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "get-item",
+							"objectClass": "LocalStorage",
+							"sid": 982680320314893,
+							"parameters": {
+								"key": "\"SFX\""
+							}
+						}
+					],
+					"sid": 226259239299506
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-item-get",
+							"objectClass": "LocalStorage",
+							"sid": 423541925107238,
+							"parameters": {
+								"key": "\"SFX\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 562911397050703,
+							"parameters": {
+								"variable": "SFX_Disabled",
+								"value": "LocalStorage.ItemValue"
+							}
+						},
+						{
+							"id": "set-animation-frame",
+							"objectClass": "BtnSFX",
+							"sid": 540336960554228,
+							"parameters": {
+								"frame-number": "SFX_Disabled"
+							}
+						}
+					],
+					"sid": 906296077456690
+				}
+			],
+			"sid": 516172097868791
+		}
+	],
+	"sid": 990014682572080
+}

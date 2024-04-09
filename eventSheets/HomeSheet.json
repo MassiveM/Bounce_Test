@@ -1,0 +1,205 @@
+{
+	"name": "HomeSheet",
+	"events": [
+		{
+			"eventType": "variable",
+			"name": "Music_Disabled",
+			"type": "number",
+			"initialValue": "0",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 765420967128441
+		},
+		{
+			"eventType": "variable",
+			"name": "SFX_Disabled",
+			"type": "number",
+			"initialValue": "0",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 281146171869858
+		},
+		{
+			"eventType": "include",
+			"includeSheet": "GeneralSheet"
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Buttons ",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-nth-touch-end",
+							"objectClass": "Touch",
+							"sid": 182960049477979,
+							"parameters": {
+								"touch-number": "0"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 259998491483350,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "is-touching-object",
+									"objectClass": "Touch",
+									"sid": 882583375472693,
+									"parameters": {
+										"object": "BtnPlay"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "go-to-layout",
+									"objectClass": "System",
+									"sid": 732121629917136,
+									"parameters": {
+										"layout": "Game"
+									}
+								}
+							],
+							"sid": 491671627150843
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 206169702327853
+								},
+								{
+									"id": "is-touching-object",
+									"objectClass": "Touch",
+									"sid": 107790155865491,
+									"parameters": {
+										"object": "BtnMusic"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 963826661789247,
+									"parameters": {
+										"variable": "Music_Disabled",
+										"value": "BtnMusic.AnimationFrame = 0 ? 1 : 0"
+									}
+								},
+								{
+									"id": "set-animation-frame",
+									"objectClass": "BtnMusic",
+									"sid": 657254093685212,
+									"parameters": {
+										"frame-number": "Music_Disabled"
+									}
+								},
+								{
+									"id": "set-item",
+									"objectClass": "LocalStorage",
+									"sid": 654364765865769,
+									"parameters": {
+										"key": "\"MUSIC\"",
+										"value": "Music_Disabled"
+									}
+								}
+							],
+							"sid": 563831125921495
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 285149669769597
+								},
+								{
+									"id": "is-touching-object",
+									"objectClass": "Touch",
+									"sid": 954129907138205,
+									"parameters": {
+										"object": "BtnSFX"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 814804661394210,
+									"parameters": {
+										"variable": "SFX_Disabled",
+										"value": "BtnSFX.AnimationFrame = 0 ? 1 : 0"
+									}
+								},
+								{
+									"id": "set-animation-frame",
+									"objectClass": "BtnSFX",
+									"sid": 841680497050323,
+									"parameters": {
+										"frame-number": "SFX_Disabled"
+									}
+								},
+								{
+									"id": "set-item",
+									"objectClass": "LocalStorage",
+									"sid": 450771008548998,
+									"parameters": {
+										"key": "\"SFX\"",
+										"value": "SFX_Disabled"
+									}
+								}
+							],
+							"sid": 910908604674264
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 553670699794077
+								},
+								{
+									"id": "is-touching-object",
+									"objectClass": "Touch",
+									"sid": 251300233567138,
+									"parameters": {
+										"object": "BtnInfo"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "open-url-in-new-window",
+									"objectClass": "Browser",
+									"sid": 763669823132427,
+									"parameters": {
+										"url": "\"https://doondook.studio/\"",
+										"tag": "\"NewWindow\""
+									}
+								}
+							],
+							"sid": 797021480530482
+						}
+					]
+				}
+			],
+			"sid": 935504994748644
+		}
+	],
+	"sid": 938727987132968
+}

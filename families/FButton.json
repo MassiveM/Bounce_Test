@@ -1,0 +1,31 @@
+{
+	"name": "FButton",
+	"plugin-id": "Sprite",
+	"sid": 926330562951382,
+	"instanceVariables": [
+		{
+			"name": "FirstWidth",
+			"type": "number",
+			"desc": "",
+			"show": true,
+			"sid": 770193191257701
+		},
+		{
+			"name": "FirstHieght",
+			"type": "number",
+			"desc": "",
+			"show": true,
+			"sid": 630560411164649
+		}
+	],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"members": [
+		"BtnMusic",
+		"BtnSFX",
+		"BtnPlay",
+		"BtnInfo",
+		"BtnRestart",
+		"BtnHome"
+	]
+}

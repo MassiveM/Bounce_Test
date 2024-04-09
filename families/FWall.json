@@ -1,0 +1,30 @@
+{
+	"name": "FWall",
+	"plugin-id": "TiledBg",
+	"sid": 660094151315063,
+	"instanceVariables": [
+		{
+			"name": "Side",
+			"type": "number",
+			"desc": "",
+			"show": true,
+			"sid": 913581917401666
+		}
+	],
+	"behaviorTypes": [
+		{
+			"behaviorId": "solid",
+			"name": "Solid",
+			"sid": 264026949072947
+		},
+		{
+			"behaviorId": "Tween",
+			"name": "Tween",
+			"sid": 144306268096822
+		}
+	],
+	"effectTypes": [],
+	"members": [
+		"Wall"
+	]
+}

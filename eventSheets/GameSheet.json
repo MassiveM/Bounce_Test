@@ -1,0 +1,1296 @@
+{
+	"name": "GameSheet",
+	"events": [
+		{
+			"eventType": "include",
+			"includeSheet": "GeneralSheet"
+		},
+		{
+			"eventType": "variable",
+			"name": "WallWidth",
+			"type": "number",
+			"initialValue": "90",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 197690983386804
+		},
+		{
+			"eventType": "variable",
+			"name": "BallSize",
+			"type": "number",
+			"initialValue": "80",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 114246341627188
+		},
+		{
+			"eventType": "variable",
+			"name": "ParticleMovementRate",
+			"type": "number",
+			"initialValue": "10",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 810115875425413
+		},
+		{
+			"eventType": "variable",
+			"name": "ParticleExplosionRate",
+			"type": "number",
+			"initialValue": "100",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 201803847240737
+		},
+		{
+			"eventType": "variable",
+			"name": "Score",
+			"type": "number",
+			"initialValue": "0",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 134991735656944
+		},
+		{
+			"eventType": "variable",
+			"name": "BestScore",
+			"type": "number",
+			"initialValue": "0",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 748559740023473
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Start",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-start-of-layout",
+							"objectClass": "System",
+							"sid": 547039060163393
+						}
+					],
+					"actions": [
+						{
+							"id": "destroy",
+							"objectClass": "Wall",
+							"sid": 739385400042407
+						},
+						{
+							"id": "destroy",
+							"objectClass": "Ball",
+							"sid": 586806075235057
+						},
+						{
+							"id": "destroy",
+							"objectClass": "Particles_Movement",
+							"sid": 224551311765544
+						},
+						{
+							"id": "destroy",
+							"objectClass": "Particles_Explosion",
+							"sid": 778836900161201
+						},
+						{
+							"callFunction": "CreateWall",
+							"sid": 639313338609150,
+							"parameters": [
+								"-1"
+							]
+						},
+						{
+							"callFunction": "CreateWall",
+							"sid": 333301018506574,
+							"parameters": [
+								"1"
+							]
+						},
+						{
+							"callFunction": "CreateText",
+							"sid": 962006571839374
+						},
+						{
+							"id": "wait",
+							"objectClass": "System",
+							"sid": 106883065580920,
+							"parameters": {
+								"seconds": "0"
+							}
+						},
+						{
+							"callFunction": "CreateBall",
+							"sid": 333508768318359
+						}
+					],
+					"sid": 782844349218449
+				},
+				{
+					"functionName": "CreateWall",
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionCopyPicked": false,
+					"functionIsAsync": false,
+					"functionParameters": [
+						{
+							"name": "Side",
+							"type": "number",
+							"initialValue": "0",
+							"comment": "",
+							"sid": 554013779289012
+						}
+					],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [],
+					"sid": 183187080195098,
+					"children": [
+						{
+							"eventType": "variable",
+							"name": "WallNum",
+							"type": "number",
+							"initialValue": "0",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 987809630360532
+						},
+						{
+							"eventType": "variable",
+							"name": "Wall_X",
+							"type": "number",
+							"initialValue": "0",
+							"comment": "",
+							"isStatic": false,
+							"isConstant": false,
+							"sid": 197904179615438
+						},
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 612568555563484,
+									"parameters": {
+										"variable": "WallNum",
+										"value": "choose(2,3,4)"
+									}
+								},
+								{
+									"id": "set-eventvar-value",
+									"objectClass": "System",
+									"sid": 694219906026873,
+									"parameters": {
+										"variable": "Wall_X",
+										"value": "Side = -1 ? 0 : LayoutWidth - 0"
+									}
+								}
+							],
+							"sid": 116361291488340
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "for",
+									"objectClass": "System",
+									"sid": 155047022064660,
+									"parameters": {
+										"name": "\"Wall\"",
+										"start-index": "0",
+										"end-index": "WallNum - 1"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "create-object",
+									"objectClass": "System",
+									"sid": 599792730076962,
+									"parameters": {
+										"object-to-create": "Wall",
+										"layer": "\"Game\"",
+										"x": "Wall_X + (Side * Wall.Width / 2) ",
+										"y": "(LayoutHeight / WallNum) * loopindex + (LayoutHeight / WallNum) / 2",
+										"create-hierarchy": false,
+										"template-name": "\"\""
+									}
+								},
+								{
+									"id": "set-size",
+									"objectClass": "Wall",
+									"sid": 806366483586907,
+									"parameters": {
+										"width": "WallWidth",
+										"height": "LayoutHeight / WallNum"
+									}
+								},
+								{
+									"id": "tween-one-property",
+									"objectClass": "Wall",
+									"sid": 190078484904856,
+									"behaviorType": "Tween",
+									"parameters": {
+										"tags": "\"Appear\"",
+										"property": "offsetX",
+										"end-value": "Side = -1 ? 0 : LayoutWidth + 0",
+										"time": ".2",
+										"ease": "easeoutquint",
+										"destroy-on-complete": "no",
+										"loop": "no",
+										"ping-pong": "no",
+										"repeat-count": "1"
+									}
+								}
+							],
+							"sid": 569019374078187,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "is-boolean-instance-variable-set",
+											"objectClass": "RndColor",
+											"sid": 585931563726909,
+											"parameters": {
+												"instance-variable": "Selected"
+											},
+											"isInverted": true
+										},
+										{
+											"id": "pick-random-instance",
+											"objectClass": "System",
+											"sid": 225819540659040,
+											"parameters": {
+												"object": "RndColor"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-boolean-instvar",
+											"objectClass": "RndColor",
+											"sid": 238492825060612,
+											"parameters": {
+												"instance-variable": "Selected",
+												"value": "true"
+											}
+										},
+										{
+											"id": "set-default-color",
+											"objectClass": "Wall",
+											"sid": 333013228769713,
+											"parameters": {
+												"color": "RndColor.ColorValue"
+											}
+										},
+										{
+											"id": "set-instvar-value",
+											"objectClass": "Wall",
+											"sid": 857374750486526,
+											"parameters": {
+												"instance-variable": "Side",
+												"value": "Side"
+											}
+										}
+									],
+									"sid": 260998444575344
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "is-boolean-instance-variable-set",
+									"objectClass": "RndColor",
+									"sid": 714454747314501,
+									"parameters": {
+										"instance-variable": "Selected"
+									}
+								},
+								{
+									"id": "for-each",
+									"objectClass": "System",
+									"sid": 362587736396992,
+									"parameters": {
+										"object": "RndColor"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-boolean-instvar",
+									"objectClass": "RndColor",
+									"sid": 623206655426548,
+									"parameters": {
+										"instance-variable": "Selected",
+										"value": "false"
+									}
+								}
+							],
+							"sid": 578030714910269
+						}
+					]
+				},
+				{
+					"functionName": "CreateBall",
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionCopyPicked": false,
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "create-object",
+							"objectClass": "System",
+							"sid": 958787053345101,
+							"parameters": {
+								"object-to-create": "Ball",
+								"layer": "\"Game\"",
+								"x": "LayoutWidth / 2",
+								"y": "LayoutHeight / 2",
+								"create-hierarchy": false,
+								"template-name": "\"\""
+							}
+						},
+						{
+							"id": "set-size",
+							"objectClass": "Ball",
+							"sid": 860725901549042,
+							"parameters": {
+								"width": "BallSize",
+								"height": "BallSize"
+							}
+						},
+						{
+							"id": "create-object",
+							"objectClass": "System",
+							"sid": 920466663653949,
+							"parameters": {
+								"object-to-create": "Particles_Movement",
+								"layer": "\"Game\"",
+								"x": "Ball.X",
+								"y": "Ball.Y",
+								"create-hierarchy": false,
+								"template-name": "\"\""
+							}
+						},
+						{
+							"id": "create-object",
+							"objectClass": "System",
+							"sid": 718388969471436,
+							"parameters": {
+								"object-to-create": "Particles_Explosion",
+								"layer": "\"Game\"",
+								"x": "Ball.X",
+								"y": "Ball.Y",
+								"create-hierarchy": false,
+								"template-name": "\"\""
+							}
+						},
+						{
+							"id": "set-angle",
+							"objectClass": "Particles_Movement",
+							"sid": 958063899743337,
+							"parameters": {
+								"angle": "Ball.Angle - 180"
+							}
+						},
+						{
+							"id": "add-child",
+							"objectClass": "Ball",
+							"sid": 590557421464197,
+							"parameters": {
+								"child": "Particles_Movement",
+								"transform-x": true,
+								"transform-y": true,
+								"transform-w": true,
+								"transform-h": true,
+								"transform-a": true,
+								"transform-o": false,
+								"transform-z-elevation": true,
+								"transform-visibility": false,
+								"destroy-with-parent": true
+							}
+						},
+						{
+							"id": "add-child",
+							"objectClass": "Ball",
+							"sid": 446820784359975,
+							"parameters": {
+								"child": "Particles_Explosion",
+								"transform-x": true,
+								"transform-y": true,
+								"transform-w": true,
+								"transform-h": true,
+								"transform-a": true,
+								"transform-o": false,
+								"transform-z-elevation": true,
+								"transform-visibility": false,
+								"destroy-with-parent": false
+							}
+						}
+					],
+					"sid": 898841066280154,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-instance-variable",
+									"objectClass": "Wall",
+									"sid": 310523781595573,
+									"parameters": {
+										"instance-variable": "Side",
+										"comparison": 0,
+										"value": "1"
+									}
+								},
+								{
+									"id": "pick-random-instance",
+									"objectClass": "System",
+									"sid": 239204011039640,
+									"parameters": {
+										"object": "Wall"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-default-color",
+									"objectClass": "Ball",
+									"sid": 467885832466606,
+									"parameters": {
+										"color": "Wall.ColorValue"
+									}
+								},
+								{
+									"id": "set-default-color",
+									"objectClass": "Particles_Movement",
+									"sid": 781320874881359,
+									"parameters": {
+										"color": "Wall.ColorValue"
+									}
+								}
+							],
+							"sid": 791565967352009
+						}
+					]
+				},
+				{
+					"functionName": "CreateText",
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionCopyPicked": false,
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "set-text",
+							"objectClass": "txtScore",
+							"sid": 155109016429222,
+							"parameters": {
+								"text": "\"0\""
+							}
+						},
+						{
+							"id": "set-position",
+							"objectClass": "txtBestScore",
+							"sid": 896744339277443,
+							"parameters": {
+								"x": "540",
+								"y": "805"
+							}
+						}
+					],
+					"sid": 993597141922463,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "is-on-layer",
+									"objectClass": "txtScore",
+									"sid": 998013633329537,
+									"parameters": {
+										"layer": "\"Game\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-position",
+									"objectClass": "txtScore",
+									"sid": 958884237647910,
+									"parameters": {
+										"x": "LayoutWidth / 2",
+										"y": "600"
+									}
+								}
+							],
+							"sid": 929316506445030
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "is-on-layer",
+									"objectClass": "txtScore",
+									"sid": 964897953583331,
+									"parameters": {
+										"layer": "\"GameOver\""
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-position",
+									"objectClass": "txtScore",
+									"sid": 356788254303388,
+									"parameters": {
+										"x": "540",
+										"y": "473"
+									}
+								}
+							],
+							"sid": 931835208148389
+						}
+					]
+				}
+			],
+			"sid": 887068190735052
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Gameplay",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-nth-touch-end",
+							"objectClass": "Touch",
+							"sid": 789682084782522,
+							"parameters": {
+								"touch-number": "0"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 764749645809770,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [],
+							"actions": [
+								{
+									"id": "set-visible",
+									"objectClass": "Particles_Movement",
+									"sid": 803653465528432,
+									"parameters": {
+										"visibility": "visible"
+									}
+								},
+								{
+									"id": "set-speed",
+									"objectClass": "Ball",
+									"sid": 124615364399459,
+									"behaviorType": "Bullet",
+									"parameters": {
+										"speed": "Ball.Dir * 1200"
+									}
+								},
+								{
+									"id": "set-angle-of-motion",
+									"objectClass": "Ball",
+									"sid": 147682932570647,
+									"behaviorType": "Bullet",
+									"parameters": {
+										"angle": "270 + (Ball.Dir * 22)"
+									}
+								},
+								{
+									"id": "set-enabled",
+									"objectClass": "Ball",
+									"sid": 962849119106881,
+									"behaviorType": "Bullet",
+									"parameters": {
+										"state": "enabled"
+									}
+								},
+								{
+									"id": "set-rate",
+									"objectClass": "Particles_Movement",
+									"sid": 813486963074287,
+									"parameters": {
+										"rate": "ParticleMovementRate"
+									}
+								}
+							],
+							"sid": 175592718401211
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-collision-with-another-object",
+							"objectClass": "Ball",
+							"sid": 985429572967200,
+							"parameters": {
+								"object": "Wall"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 893389015630600,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 291475322543753,
+									"parameters": {
+										"first-value": "Wall.ColorValue",
+										"comparison": 0,
+										"second-value": "Ball.ColorValue"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "set-instvar-value",
+									"objectClass": "Ball",
+									"sid": 951129362627462,
+									"parameters": {
+										"instance-variable": "Dir",
+										"value": "- Ball.Dir"
+									}
+								},
+								{
+									"callFunction": "PlaySFX",
+									"sid": 579533844211744,
+									"parameters": [
+										"\"BallCollision\""
+									]
+								},
+								{
+									"id": "add-to-eventvar",
+									"objectClass": "System",
+									"sid": 660501922778838,
+									"parameters": {
+										"variable": "Score",
+										"value": "1"
+									}
+								},
+								{
+									"id": "set-text",
+									"objectClass": "txtScore",
+									"sid": 174653511563123,
+									"parameters": {
+										"text": "\"\" & Score"
+									}
+								}
+							],
+							"sid": 208485734687237,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-eventvar",
+											"objectClass": "System",
+											"sid": 926760158156275,
+											"parameters": {
+												"variable": "BestScore",
+												"comparison": 2,
+												"value": "Score"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-eventvar-value",
+											"objectClass": "System",
+											"sid": 491647657219475,
+											"parameters": {
+												"variable": "BestScore",
+												"value": "Score"
+											}
+										},
+										{
+											"id": "set-text",
+											"objectClass": "txtBestScore",
+											"sid": 413365568927319,
+											"parameters": {
+												"text": "\"Best: \" & BestScore"
+											}
+										},
+										{
+											"id": "set-item",
+											"objectClass": "LocalStorage",
+											"sid": 162049530767198,
+											"parameters": {
+												"key": "\"BEST\"",
+												"value": "BestScore"
+											}
+										}
+									],
+									"sid": 906370088853263
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-instance-variable",
+											"objectClass": "FWall",
+											"sid": 706684239349036,
+											"parameters": {
+												"instance-variable": "Side",
+												"comparison": 0,
+												"value": "Wall.Side"
+											}
+										},
+										{
+											"id": "for-each",
+											"objectClass": "System",
+											"sid": 841474357359681,
+											"parameters": {
+												"object": "FWall"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "tween-one-property",
+											"objectClass": "FWall",
+											"sid": 147468121033420,
+											"behaviorType": "Tween",
+											"parameters": {
+												"tags": "\"Fade\"",
+												"property": "offsetX",
+												"end-value": "Self.Side = -1 ? -(Self.Width / 2) : LayoutWidth + (Self.Width / 2)",
+												"time": ".2",
+												"ease": "easeoutquint",
+												"destroy-on-complete": "yes",
+												"loop": "no",
+												"ping-pong": "no",
+												"repeat-count": "1"
+											}
+										}
+									],
+									"sid": 112205455487549
+								},
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "compare-instance-variable",
+											"objectClass": "FWall",
+											"sid": 554917594140996,
+											"parameters": {
+												"instance-variable": "Side",
+												"comparison": 0,
+												"value": "-Wall.Side"
+											}
+										},
+										{
+											"id": "pick-random-instance",
+											"objectClass": "System",
+											"sid": 948437736796503,
+											"parameters": {
+												"object": "FWall"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "set-default-color",
+											"objectClass": "Ball",
+											"sid": 657255288996788,
+											"parameters": {
+												"color": "FWall.ColorValue"
+											}
+										},
+										{
+											"id": "set-default-color",
+											"objectClass": "Particles_Movement",
+											"sid": 903254840319945,
+											"parameters": {
+												"color": "FWall.ColorValue"
+											}
+										}
+									],
+									"sid": 720284994162922
+								},
+								{
+									"eventType": "block",
+									"conditions": [],
+									"actions": [
+										{
+											"id": "wait",
+											"objectClass": "System",
+											"sid": 904911201132620,
+											"parameters": {
+												"seconds": ".2"
+											}
+										},
+										{
+											"callFunction": "CreateWall",
+											"sid": 809122843637305,
+											"parameters": [
+												"-Ball.Dir"
+											]
+										}
+									],
+									"sid": 671334508618195
+								}
+							]
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 813889865517513
+								}
+							],
+							"actions": [
+								{
+									"type": "comment",
+									"text": "Ball Explode "
+								},
+								{
+									"id": "destroy",
+									"objectClass": "Ball",
+									"sid": 633070174569643
+								},
+								{
+									"callFunction": "GameOver",
+									"sid": 422265187873908
+								}
+							],
+							"sid": 910279283163782
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-y",
+							"objectClass": "Ball",
+							"sid": 462414853727158,
+							"parameters": {
+								"comparison": 5,
+								"y-co-ordinate": "LayoutHeight"
+							}
+						},
+						{
+							"id": "trigger-once-while-true",
+							"objectClass": "System",
+							"sid": 604666194943075
+						}
+					],
+					"actions": [
+						{
+							"id": "destroy",
+							"objectClass": "Ball",
+							"sid": 694578147464826
+						},
+						{
+							"callFunction": "GameOver",
+							"sid": 403540054534442
+						}
+					],
+					"sid": 962864894544686
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-y",
+							"objectClass": "Ball",
+							"sid": 767479932334151,
+							"parameters": {
+								"comparison": 3,
+								"y-co-ordinate": "0"
+							}
+						},
+						{
+							"id": "trigger-once-while-true",
+							"objectClass": "System",
+							"sid": 789679529257168
+						}
+					],
+					"actions": [
+						{
+							"id": "destroy",
+							"objectClass": "Ball",
+							"sid": 839958247533867
+						},
+						{
+							"callFunction": "GameOver",
+							"sid": 145795667358200
+						}
+					],
+					"sid": 585068525190613
+				},
+				{
+					"functionName": "GameOver",
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionCopyPicked": false,
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"callFunction": "PlaySFX",
+							"sid": 287078888910656,
+							"parameters": [
+								"\"BallExplosion\""
+							]
+						},
+						{
+							"id": "set-default-color",
+							"objectClass": "Particles_Explosion",
+							"sid": 762004321286381,
+							"parameters": {
+								"color": "Ball.ColorValue"
+							}
+						},
+						{
+							"id": "set-visible",
+							"objectClass": "Particles_Explosion",
+							"sid": 928868727179706,
+							"parameters": {
+								"visibility": "visible"
+							}
+						},
+						{
+							"id": "set-rate",
+							"objectClass": "Particles_Explosion",
+							"sid": 310824485195902,
+							"parameters": {
+								"rate": "ParticleExplosionRate"
+							}
+						},
+						{
+							"id": "wait",
+							"objectClass": "System",
+							"sid": 931645911140169,
+							"parameters": {
+								"seconds": ".7"
+							}
+						},
+						{
+							"id": "set-layer-visible",
+							"objectClass": "System",
+							"sid": 813822068039295,
+							"parameters": {
+								"layer": "\"Game\"",
+								"visibility": "invisible"
+							}
+						},
+						{
+							"id": "set-layer-interactive",
+							"objectClass": "System",
+							"sid": 454567416989939,
+							"parameters": {
+								"layer": "\"Game\"",
+								"interactive": false
+							}
+						},
+						{
+							"id": "set-layer-visible",
+							"objectClass": "System",
+							"sid": 184009016280456,
+							"parameters": {
+								"layer": "\"GameOver\"",
+								"visibility": "visible"
+							}
+						},
+						{
+							"id": "set-layer-interactive",
+							"objectClass": "System",
+							"sid": 700860998415908,
+							"parameters": {
+								"layer": "\"GameOver\"",
+								"interactive": true
+							}
+						}
+					],
+					"sid": 613312087414722
+				}
+			],
+			"sid": 656451206139107
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "LocalStorage",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-start-of-layout",
+							"objectClass": "System",
+							"sid": 526801824305013
+						}
+					],
+					"actions": [
+						{
+							"id": "check-item-exists",
+							"objectClass": "LocalStorage",
+							"sid": 496708663214955,
+							"parameters": {
+								"key": "\"BEST\""
+							}
+						}
+					],
+					"sid": 148664975398261
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-item-exists",
+							"objectClass": "LocalStorage",
+							"sid": 496627443515802,
+							"parameters": {
+								"key": "\"BEST\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "get-item",
+							"objectClass": "LocalStorage",
+							"sid": 888725094352020,
+							"parameters": {
+								"key": "\"BEST\""
+							}
+						}
+					],
+					"sid": 546581809857599
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-item-get",
+							"objectClass": "LocalStorage",
+							"sid": 464081389633910,
+							"parameters": {
+								"key": "\"BEST\""
+							}
+						}
+					],
+					"actions": [
+						{
+							"id": "set-eventvar-value",
+							"objectClass": "System",
+							"sid": 791253685306247,
+							"parameters": {
+								"variable": "BestScore",
+								"value": "LocalStorage.ItemValue"
+							}
+						},
+						{
+							"id": "set-text",
+							"objectClass": "txtBestScore",
+							"sid": 188801256905434,
+							"parameters": {
+								"text": "\"Best: \" & BestScore"
+							}
+						}
+					],
+					"sid": 109818115803205
+				}
+			],
+			"sid": 862463840557156
+		},
+		{
+			"eventType": "group",
+			"disabled": false,
+			"title": "Buttons  ",
+			"description": "",
+			"isActiveOnStart": true,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "on-nth-touch-end",
+							"objectClass": "Touch",
+							"sid": 722431838924350,
+							"parameters": {
+								"touch-number": "0"
+							}
+						}
+					],
+					"actions": [],
+					"sid": 832309542907614,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "is-touching-object",
+									"objectClass": "Touch",
+									"sid": 520259584450609,
+									"parameters": {
+										"object": "BtnHome"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "go-to-layout",
+									"objectClass": "System",
+									"sid": 100697292127037,
+									"parameters": {
+										"layout": "Home"
+									}
+								},
+								{
+									"id": "wait",
+									"objectClass": "System",
+									"sid": 786797864035341,
+									"parameters": {
+										"seconds": "0"
+									}
+								},
+								{
+									"callFunction": "GameBegin",
+									"sid": 308324334660874
+								}
+							],
+							"sid": 673360806868076
+						},
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "else",
+									"objectClass": "System",
+									"sid": 855881836568125
+								},
+								{
+									"id": "is-touching-object",
+									"objectClass": "Touch",
+									"sid": 113159349501025,
+									"parameters": {
+										"object": "BtnRestart"
+									}
+								}
+							],
+							"actions": [
+								{
+									"callFunction": "GameBegin",
+									"sid": 417850285172297
+								}
+							],
+							"sid": 829181386432955
+						}
+					]
+				},
+				{
+					"functionName": "GameBegin",
+					"functionDescription": "",
+					"functionCategory": "",
+					"functionReturnType": "none",
+					"functionCopyPicked": false,
+					"functionIsAsync": false,
+					"functionParameters": [],
+					"eventType": "function-block",
+					"conditions": [],
+					"actions": [
+						{
+							"id": "reset-global-variables",
+							"objectClass": "System",
+							"sid": 765768665700748
+						},
+						{
+							"id": "restart-layout",
+							"objectClass": "System",
+							"sid": 199815425631399
+						},
+						{
+							"id": "set-layer-visible",
+							"objectClass": "System",
+							"sid": 953294723032377,
+							"parameters": {
+								"layer": "\"GameOver\"",
+								"visibility": "invisible"
+							}
+						},
+						{
+							"id": "set-layer-interactive",
+							"objectClass": "System",
+							"sid": 234731689993538,
+							"parameters": {
+								"layer": "\"GameOver\"",
+								"interactive": false
+							}
+						},
+						{
+							"id": "set-layer-visible",
+							"objectClass": "System",
+							"sid": 281918217847307,
+							"parameters": {
+								"layer": "\"Game\"",
+								"visibility": "visible"
+							}
+						},
+						{
+							"id": "set-layer-interactive",
+							"objectClass": "System",
+							"sid": 699838602550473,
+							"parameters": {
+								"layer": "\"Game\"",
+								"interactive": true
+							}
+						}
+					],
+					"sid": 233366871178796
+				}
+			],
+			"sid": 850149495266644
+		}
+	],
+	"sid": 585619072179584
+}
